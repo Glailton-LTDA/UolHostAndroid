@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">UolHost</string>
+
+    <!--Home Screen-->
+    <string name="search_icon">Search Icon</string>
+    <string name="filter_icon">Filter Icon</string>
+
+    <string name="error_not_authorized">Unauthorized request. Please close the app and log in the Launcher again.</string>
+</resources>

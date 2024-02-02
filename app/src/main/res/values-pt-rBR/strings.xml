@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Home Screen-->
+    <string name="search_icon">Ícone de busca</string>
+    <string name="filter_icon">Ícone de filtro</string>
+    <string name="error_not_authorized">Requisição não autorizada. Por favor, feche o aplicativo e realize o login no Launcher novamente.</string>
+</resources>
