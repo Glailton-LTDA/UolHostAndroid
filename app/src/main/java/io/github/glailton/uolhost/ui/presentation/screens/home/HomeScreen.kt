@@ -17,6 +17,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material3.AssistChip
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -27,7 +28,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -38,6 +39,7 @@ import androidx.wear.compose.material3.MaterialTheme
 import io.github.glailton.uolhost.core.domain.enums.GroupType
 import io.github.glailton.uolhost.core.domain.models.Player
 import io.github.glailton.uolhost.ui.presentation.components.HomeTopBar
+import io.github.glailton.uolhost.ui.theme.UolHostTheme
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -71,7 +73,6 @@ fun HomeScreen(viewModel: HomeViewModel) {
 fun ListContent(
     players: List<Player>
 ) {
-
     LazyColumn(
         contentPadding = PaddingValues(all = 8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -81,7 +82,7 @@ fun ListContent(
             key = { player ->
                 player.id
             }
-        ){ player ->
+        ) { player ->
             PlayerItem(player = player)
         }
     }
@@ -93,7 +94,7 @@ fun PlayerItem(player: Player) {
     Surface(
         modifier = Modifier
             .fillMaxWidth(),
-        color = MaterialTheme.colorScheme.onSurface,
+        color = MaterialTheme.colorScheme.surface,
         shape = RoundedCornerShape(8.dp)
     ) {
         Row(
@@ -106,6 +107,7 @@ fun PlayerItem(player: Player) {
                     .size(50.dp)
                     .padding(8.dp),
                 contentScale = ContentScale.FillBounds,
+                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.secondary)
             )
             Column(
                 modifier = Modifier
@@ -114,15 +116,26 @@ fun PlayerItem(player: Player) {
             ) {
                 Text(
                     text = player.name,
+                    color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.Bold,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     text = player.codiname,
-                    color = Color.Black.copy(alpha = ContentAlpha.medium),
+                    color = MaterialTheme.colorScheme.primary.copy(alpha = ContentAlpha.medium),
                     maxLines = 3,
                     overflow = TextOverflow.Ellipsis
+                )
+                AssistChip(
+                    enabled = false,
+                    label = {
+                        Text(
+                            text = player.groupType.name,
+                            color = MaterialTheme.colorScheme.primary.copy(alpha = ContentAlpha.medium)
+                        )
+                    },
+                    onClick = {}
                 )
             }
         }
@@ -130,20 +143,20 @@ fun PlayerItem(player: Player) {
     }
 }
 
-@Preview
-@Composable
-fun HomeScreenPrev() {
-    ListContent(players = listOf(
-        Player(id = 1, name = "Glailton", codiname = "hulk", email = "glailton@email.com", groupType = GroupType.AVENGERS),
-        Player(id = 2, name = "Deisi", codiname = "hulk", email = "glailton@email.com", groupType = GroupType.AVENGERS),
-    ))
-}
 
-@Preview(showBackground = true,     uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(showBackground = true, name = "Light Mode")
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, name = "Dark Mode")
 @Composable()
 fun HomeScreenDarkPrev() {
-    ListContent(players = listOf(
-        Player(id = 1, name = "Glailton", codiname = "hulk", email = "glailton@email.com", groupType = GroupType.AVENGERS),
-        Player(id = 2, name = "Deisi", codiname = "hulk", email = "glailton@email.com", groupType = GroupType.AVENGERS),
-    ))
+    UolHostTheme {
+        PlayerItem(
+            player = Player(
+                id = 1,
+                name = "Glailton",
+                codiname = "hulk",
+                email = "glailton@email.com",
+                groupType = GroupType.AVENGERS
+            )
+        )
+    }
 }
