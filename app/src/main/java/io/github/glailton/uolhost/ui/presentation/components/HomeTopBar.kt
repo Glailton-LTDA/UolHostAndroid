@@ -2,6 +2,7 @@ package io.github.glailton.uolhost.ui.presentation.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FilterList
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -17,8 +18,9 @@ import io.github.glailton.uolhost.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeTopBar(
-    onSearchClicked: () -> Unit,
-    onFilterClicked: () -> Unit
+    onSearch: () -> Unit,
+    onFilter: () -> Unit,
+    onRefresh: () -> Unit
 ) {
     TopAppBar(
         title = {
@@ -31,16 +33,22 @@ fun HomeTopBar(
             actionIconContentColor = MaterialTheme.colorScheme.onSecondary
         ),
         actions = {
-            IconButton(onClick = onSearchClicked) {
+            IconButton(onClick = { onSearch.invoke() }) {
                 Icon(
                     imageVector = Icons.Default.Search,
                     contentDescription = stringResource(R.string.search_icon)
                 )
             }
-            IconButton(onClick = onFilterClicked) {
+            IconButton(onClick = { onFilter.invoke() }) {
                 Icon(
                     imageVector = Icons.Default.FilterList,
                     contentDescription = stringResource(R.string.filter_icon)
+                )
+            }
+            IconButton(onClick = { onRefresh.invoke() }) {
+                Icon(
+                    imageVector = Icons.Default.Refresh,
+                    contentDescription = stringResource(R.string.refresh_icon)
                 )
             }
         }

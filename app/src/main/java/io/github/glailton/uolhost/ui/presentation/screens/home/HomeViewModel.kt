@@ -14,23 +14,23 @@ class HomeViewModel(private val repository: PlayerRepository): ViewModel() {
     val state = _state.asStateFlow()
 
     fun getPlayers() = viewModelScope.launch {
-        handleRefreshState()
+        handleLoadingState()
         when(val result = repository.getAllPlayers()) {
             is Success -> {
+                hideLoadingState()
                 _state.update {
-                    it.copy(
-                        players = result.value
-                    )
+                    it.playersWith(result.value)
                 }
             }
 
             else -> {
-                hideRefreshState()
+                hideLoadingState()
+                handleNetworkErrorState()
             }
         }
     }
 
-    private fun handleRefreshState() {
+    private fun handleLoadingState() {
         _state.update {
             it.copy(
                 isLoading = true
@@ -38,7 +38,15 @@ class HomeViewModel(private val repository: PlayerRepository): ViewModel() {
         }
     }
 
-    private fun hideRefreshState() {
+    private fun handleNetworkErrorState() {
+        _state.update {
+            it.copy(
+                showNetworkError = true
+            )
+        }
+    }
+
+    private fun hideLoadingState() {
         _state.update {
             it.copy(
                 isLoading = false

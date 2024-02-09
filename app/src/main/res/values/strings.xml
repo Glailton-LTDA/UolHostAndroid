@@ -1,9 +1,15 @@
 <resources>
-    <string name="app_name">UolHost</string>
+    <string name="app_name" translatable="false">UolHost</string>
 
     <!--Home Screen-->
     <string name="search_icon">Search Icon</string>
     <string name="filter_icon">Filter Icon</string>
+    <string name="refresh_icon">Refresh Icon</string>
 
-    <string name="error_not_authorized">Unauthorized request. Please close the app and log in the Launcher again.</string>
+    <string name="error_not_authorized">Unauthorized request!</string>
+    <string name="empty_list_message">It appears that you have no registered players! Try register a new one!</string>
+    <string name="empty_list_title">Oh no!</string>
+    <string name="network_error_message">No Internet connection was found. Check your connection or try again.</string>
+    <string name="network_error_title">Whoops!!</string>
+    <string name="try_again_label">Try again</string>
 </resources>

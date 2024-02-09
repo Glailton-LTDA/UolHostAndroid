@@ -2,6 +2,7 @@ package io.github.glailton.uolhost.ui.presentation.screens.home
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,6 +19,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.AssistChip
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -28,17 +31,22 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material3.ContentAlpha
 import androidx.wear.compose.material3.MaterialTheme
+import io.github.glailton.uolhost.R
 import io.github.glailton.uolhost.core.domain.enums.GroupType
 import io.github.glailton.uolhost.core.domain.models.Player
+import io.github.glailton.uolhost.ui.presentation.components.EmptyContent
 import io.github.glailton.uolhost.ui.presentation.components.HomeTopBar
+import io.github.glailton.uolhost.ui.presentation.components.LoadingProgressBar
+import io.github.glailton.uolhost.ui.presentation.components.NetworkError
 import io.github.glailton.uolhost.ui.theme.UolHostTheme
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -46,24 +54,34 @@ import io.github.glailton.uolhost.ui.theme.UolHostTheme
 fun HomeScreen(viewModel: HomeViewModel) {
     val state = viewModel.state.collectAsState().value
 
-    LaunchedEffect(true) {
+    LaunchedEffect(Unit) {
         viewModel.getPlayers()
     }
 
     Scaffold(
         topBar = {
-            HomeTopBar(onSearchClicked = { /*TODO*/ }) {
-
-            }
+            HomeTopBar(
+                onSearch = { },
+                onFilter = {},
+                onRefresh = { viewModel.getPlayers() }
+            )
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = { /*TODO*/ }) {
+            FloatingActionButton(
+                onClick = { /*TODO*/ },
+                modifier = Modifier.alpha(if (state.showNetworkError) 0f else 1f)
+            ) {
                 Icon(Icons.Rounded.Add, contentDescription = "Add")
             }
         },
         content = {
             Column(modifier = Modifier.padding(it)) {
-                ListContent(state.players)
+                when {
+                    state.isLoading -> LoadingProgressBar()
+                    state.showNetworkError -> NetworkError(viewModel::getPlayers)
+                    state.players.isEmpty() -> EmptyContent()
+                    else -> ListContent(state.players)
+                }
             }
         }
     )
@@ -91,52 +109,62 @@ fun ListContent(
 
 @Composable
 fun PlayerItem(player: Player) {
-    Surface(
+    Card(
         modifier = Modifier
             .fillMaxWidth(),
-        color = MaterialTheme.colorScheme.surface,
-        shape = RoundedCornerShape(8.dp)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.background),
+        shape = RoundedCornerShape(8.dp),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
     ) {
         Row(
+            horizontalArrangement = Arrangement.End,
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Image(
-                imageVector = Icons.Default.Person,
+                painter = painterResource(R.drawable.lanterna_verde),
                 contentDescription = null,
                 modifier = Modifier
                     .size(50.dp)
                     .padding(8.dp),
-                contentScale = ContentScale.FillBounds,
-                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.secondary)
+                contentScale = ContentScale.FillBounds
             )
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(all = 8.dp)
             ) {
-                Text(
-                    text = player.name,
-                    color = MaterialTheme.colorScheme.primary,
-                    fontWeight = FontWeight.Bold,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-                Text(
-                    text = player.codiname,
-                    color = MaterialTheme.colorScheme.primary.copy(alpha = ContentAlpha.medium),
-                    maxLines = 3,
-                    overflow = TextOverflow.Ellipsis
-                )
-                AssistChip(
-                    enabled = false,
-                    label = {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    Column {
                         Text(
-                            text = player.groupType.name,
-                            color = MaterialTheme.colorScheme.primary.copy(alpha = ContentAlpha.medium)
+                            text = player.name,
+                            color = MaterialTheme.colorScheme.primary,
+                            fontWeight = FontWeight.Bold,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
                         )
-                    },
-                    onClick = {}
-                )
+                        Text(
+                            text = player.codiname,
+                            color = MaterialTheme.colorScheme.primary,
+                            maxLines = 3,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+
+                    AssistChip(
+                        modifier = Modifier,
+                        enabled = false,
+                        label = {
+                            Text(
+                                text = player.groupType.name,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        },
+                        onClick = {}
+                    )
+                }
             }
         }
 
