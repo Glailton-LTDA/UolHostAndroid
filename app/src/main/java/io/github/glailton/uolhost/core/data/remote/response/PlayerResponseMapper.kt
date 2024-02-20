@@ -8,7 +8,7 @@ class PlayerResponseMapper: Mapper<PlayerResponse, Player> {
         id = from.id,
         name = from.name,
         email = from.email,
-        codiname = from.codiname,
-        groupType = from.groupType
+        codiname = Player.handleCodiname(from.codiname),
+        groupType = from.groupType.value
     )
 }

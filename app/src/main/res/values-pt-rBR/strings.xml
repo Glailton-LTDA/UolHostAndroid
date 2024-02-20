@@ -12,5 +12,7 @@
     <string name="network_error_message">Sem conexão de internet. Por favor verifique sua conexão!</string>
     <string name="network_error_title">Eita!!</string>
     <string name="try_again_label">Tentar Novamente</string>
+    <string name="justice_league">Liga da Justiça</string>
+    <string name="avengers">Vingadores</string>
 
 </resources>
