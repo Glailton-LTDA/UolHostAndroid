@@ -1,9 +1,6 @@
 package io.github.glailton.uolhost.core.domain.models
 
-import androidx.annotation.StringRes
 import io.github.glailton.uolhost.R
-import io.github.glailton.uolhost.core.data.remote.response.PlayerResponse
-import io.github.glailton.uolhost.core.domain.enums.GroupType
 
 data class Player(
     val id: Long,

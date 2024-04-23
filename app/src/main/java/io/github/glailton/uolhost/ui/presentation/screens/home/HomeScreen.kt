@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -18,15 +17,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -35,7 +31,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -48,14 +43,17 @@ import io.github.glailton.uolhost.R
 import io.github.glailton.uolhost.core.domain.enums.GroupType
 import io.github.glailton.uolhost.core.domain.models.Player
 import io.github.glailton.uolhost.ui.presentation.components.EmptyContent
-import io.github.glailton.uolhost.ui.presentation.components.HomeTopBar
 import io.github.glailton.uolhost.ui.presentation.components.LoadingProgressBar
 import io.github.glailton.uolhost.ui.presentation.components.NetworkError
+import io.github.glailton.uolhost.ui.presentation.components.TopBar
 import io.github.glailton.uolhost.ui.theme.UolHostTheme
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun HomeScreen(viewModel: HomeViewModel) {
+fun HomeScreen(
+    viewModel: HomeViewModel,
+    onAddClicked: () -> Unit
+) {
     val state = viewModel.state.collectAsState().value
 
     LaunchedEffect(Unit) {
@@ -64,15 +62,18 @@ fun HomeScreen(viewModel: HomeViewModel) {
 
     Scaffold(
         topBar = {
-            HomeTopBar(
-                onSearch = { },
+            TopBar(
+                showSearch = true,
+                showFilter = true,
+                showRefresh = true,
+                onSearch = {},
                 onFilter = {},
                 onRefresh = { viewModel.getPlayers() }
             )
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { /*TODO*/ },
+                onClick = { onAddClicked.invoke() },
                 modifier = Modifier.alpha(if (state.showNetworkError) 0f else 1f)
             ) {
                 Icon(Icons.Rounded.Add, contentDescription = "Add")

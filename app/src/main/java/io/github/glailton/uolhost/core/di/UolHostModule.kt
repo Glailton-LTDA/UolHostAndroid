@@ -5,6 +5,7 @@ import io.github.glailton.uolhost.core.data.repository.PlayerRepository
 import io.github.glailton.uolhost.core.data.repository.PlayerRepositoryImpl
 import io.github.glailton.uolhost.core.utils.ApiEndpoint
 import io.github.glailton.uolhost.ui.presentation.screens.home.HomeViewModel
+import io.github.glailton.uolhost.ui.presentation.screens.add.AddViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -23,4 +24,5 @@ val uolHostModules = module {
     }
 
     viewModelOf(::HomeViewModel)
+    viewModelOf(::AddViewModel)
 }
