@@ -41,7 +41,10 @@ fun TopBar(
         navigationIcon = {
             if (showBackIcon) {
                 IconButton(onClick = { onBack.invoke() }) {
-                    Icon(Icons.AutoMirrored.Filled.ArrowBack, null)
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = stringResource(id = R.string.back_icon)
+                    )
                 }
             }
         },
@@ -64,7 +67,7 @@ fun TopBar(
                 }
             }
 
-            if (showRefresh){
+            if (showRefresh) {
                 IconButton(onClick = { onRefresh.invoke() }) {
                     Icon(
                         imageVector = Icons.Default.Refresh,

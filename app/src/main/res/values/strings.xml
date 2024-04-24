@@ -5,6 +5,7 @@
     <string name="search_icon">Search Icon</string>
     <string name="filter_icon">Filter Icon</string>
     <string name="refresh_icon">Refresh Icon</string>
+    <string name="back_icon">Back Icon</string>
 
     <string name="error_not_authorized">Unauthorized request!</string>
     <string name="empty_list_message">It appears that you have no registered players! Try register a new one!</string>

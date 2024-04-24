@@ -5,18 +5,17 @@ import android.content.Intent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithContentDescription
-import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import io.github.glailton.uolhost.MainActivity
-import io.github.glailton.uolhost.R
 import io.github.glailton.uolhost.rule.WebServerRule
+import io.github.glailton.uolhost.ui.presentation.utils.TestTags
 import io.github.glailton.uolhost.ui.theme.UolHostTheme
 import org.junit.Rule
 import org.junit.Test
 
-class EmptyContentTest {
+class LoadingProgressBarTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
 
     @ExperimentalFoundationApi
@@ -34,22 +33,15 @@ class EmptyContentTest {
     val webServerRule = WebServerRule()
 
     @Test
-    fun should_display_empty_content_screen() {
+    fun should_display_loading_progress_bar() {
         composeTestRule.setContent {
             UolHostTheme {
-                EmptyContent()
+                LoadingProgressBar()
             }
         }
 
         composeTestRule.run {
-            onNodeWithContentDescription(context.getString(R.string.empty_list_title))
-                .assertIsDisplayed()
-
-            onNodeWithText(context.getString(R.string.empty_list_title))
-                .assertIsDisplayed()
-
-            onNodeWithText(context.getString(R.string.empty_list_message))
-                .assertIsDisplayed()
+            onNodeWithTag(TestTags.LOADING_DIALOG).assertIsDisplayed()
         }
 
     }

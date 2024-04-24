@@ -16,7 +16,7 @@ import io.github.glailton.uolhost.ui.theme.UolHostTheme
 import org.junit.Rule
 import org.junit.Test
 
-class EmptyContentTest {
+class NetworkErrorTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
 
     @ExperimentalFoundationApi
@@ -34,21 +34,21 @@ class EmptyContentTest {
     val webServerRule = WebServerRule()
 
     @Test
-    fun should_display_empty_content_screen() {
+    fun should_display_network_error_screen() {
         composeTestRule.setContent {
             UolHostTheme {
-                EmptyContent()
+                NetworkError(onTryAgain = {})
             }
         }
 
         composeTestRule.run {
-            onNodeWithContentDescription(context.getString(R.string.empty_list_title))
+            onNodeWithContentDescription(context.getString(R.string.network_error_title))
                 .assertIsDisplayed()
 
-            onNodeWithText(context.getString(R.string.empty_list_title))
+            onNodeWithText(context.getString(R.string.network_error_title))
                 .assertIsDisplayed()
 
-            onNodeWithText(context.getString(R.string.empty_list_message))
+            onNodeWithText(context.getString(R.string.network_error_message))
                 .assertIsDisplayed()
         }
 

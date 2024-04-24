@@ -5,6 +5,7 @@
     <string name="search_icon">Ícone de busca</string>
     <string name="filter_icon">Ícone de filtro</string>
     <string name="refresh_icon">Ícone de atualização</string>
+    <string name="back_icon">Ícone de voltar</string>
 
     <string name="error_not_authorized">Requisição não autorizada!</string>
     <string name="empty_list_message">Parece que você não tem jogadores cadastrados! Experimente cadastrar algum!</string>

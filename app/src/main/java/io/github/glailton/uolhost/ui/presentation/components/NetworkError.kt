@@ -35,7 +35,7 @@ fun NetworkError(onTryAgain: () -> Unit) {
         ) {
             Image(
                 painter = painterResource(id = R.drawable.network_error),
-                contentDescription = null,
+                contentDescription = stringResource(id = R.string.network_error_title),
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .height(200.dp)
