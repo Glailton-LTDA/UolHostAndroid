@@ -33,6 +33,7 @@ class HomeViewModelTest {
         vm = HomeViewModel(repository)
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @After
     fun teardown() {
         Dispatchers.resetMain()

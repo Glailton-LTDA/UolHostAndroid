@@ -15,4 +15,18 @@
     <string name="try_again_label">Try again</string>
     <string name="justice_league">Justice League</string>
     <string name="avengers">Avengers</string>
+
+    <!--Add Screen-->
+    <string name="name">Name</string>
+    <string name="name_error">Fill the field name</string>
+    <string name="email">email</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="team">Team</string>
+    <string name="create">Create</string>
+    <string name="add_player">Add player</string>
+
+    <string name="cancel">Cancel</string>
+    <string name="error_dialog_title">There is something wrong :(</string>
+    <string name="error_dialog_text">We are working to fix the problem. Try again in a few minutes or now if you\'d like.</string>
+    <string name="create_player_message">Player created successfully!</string>
 </resources>

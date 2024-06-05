@@ -2,6 +2,8 @@ package io.github.glailton.uolhost.ui.presentation.navigation
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -35,12 +37,20 @@ fun NavGraphBuilder.navHomeScreen(navController: NavHostController) {
 fun NavGraphBuilder.navAddScreen(navController: NavHostController) {
     composable(route = Routes.AddScreenRoute.routes) {
         val viewModel: AddViewModel = koinViewModel()
+        val state = viewModel.state.collectAsState().value
+
         BackHandler {
             navController.popBackStack()
         }
         AddScreen(
             viewModel = viewModel,
             onBackClicked = { navController.popBackStack() }
-        )
+        ) { navController.popBackStack() }
+
+        LaunchedEffect(state.isSuccess) {
+            if (state.isSuccess){
+                navController.popBackStack()
+            }
+        }
     }
 }

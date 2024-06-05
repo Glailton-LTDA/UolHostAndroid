@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -22,6 +21,7 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun GradientButton(
+    modifier: Modifier = Modifier,
     gradientColors: List<Color>,
     cornerRadius: Dp,
     nameButton: String,
@@ -30,7 +30,7 @@ fun GradientButton(
 ) {
 
     Button(
-        modifier = Modifier
+        modifier = modifier
             .padding(start = 5.dp, end = 5.dp),
         onClick = {
             onClick.invoke()
@@ -43,8 +43,7 @@ fun GradientButton(
         shape = RoundedCornerShape(cornerRadius)
     ) {
         Box(
-            modifier = Modifier
-                .width(150.dp)
+            modifier = modifier
                 .background(
                     brush = Brush.horizontalGradient(colors = gradientColors),
                     shape = roundedCornerShape

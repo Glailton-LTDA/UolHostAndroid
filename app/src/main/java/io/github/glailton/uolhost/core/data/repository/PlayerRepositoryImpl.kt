@@ -1,6 +1,7 @@
 package io.github.glailton.uolhost.core.data.repository
 
 import io.github.glailton.uolhost.core.data.remote.UolApi
+import io.github.glailton.uolhost.core.data.remote.request.AddPlayerRequest
 import io.github.glailton.uolhost.core.data.remote.response.PlayerResponse
 import io.github.glailton.uolhost.core.data.retrofit.Repository
 import io.github.glailton.uolhost.core.data.utils.Mapper
@@ -13,4 +14,7 @@ class PlayerRepositoryImpl(
 ): Repository(), PlayerRepository {
     override suspend fun getAllPlayers() =
         executeHttpRequest { api.getAllPlayers().mapWith(playerMapper) }
+
+    override suspend fun createPlayer(request: AddPlayerRequest) =
+        executeHttpRequest { api.createPlayer(request) }
 }

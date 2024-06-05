@@ -16,4 +16,18 @@
     <string name="justice_league">Liga da Justiça</string>
     <string name="avengers">Vingadores</string>
 
+    <!--Add Screen-->
+    <string name="name">Nome</string>
+    <string name="name_error">Preencha o campo nome.</string>
+    <string name="email">email</string>
+    <string name="phone_number">Telefone</string>
+    <string name="team">Time</string>
+    <string name="create">Criar</string>
+    <string name="add_player">Adicionar jogador</string>
+
+    <string name="cancel">Cancelar</string>
+    <string name="error_dialog_title">Tem algo de errado :(</string>
+    <string name="error_dialog_text">Estamos trabalhando para resolver o problema. Tente mais tarde ou agora se você quiser.</string>
+    <string name="create_player_message">Jogador salvo com sucesso!</string>
+
 </resources>

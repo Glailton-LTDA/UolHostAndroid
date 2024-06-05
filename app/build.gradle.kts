@@ -84,11 +84,12 @@ dependencies {
     testImplementation( "io.kotest:kotest-assertions-core:5.6.2")
     testImplementation ("org.junit.jupiter:junit-jupiter-params:5.8.2")
     testImplementation(kotlin("test"))
+    implementation(kotlin("test-junit"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
 
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
+    androidTestImplementation(platform("androidx.compose:compose-bom:2024.05.00"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     androidTestImplementation("com.squareup.okhttp3:mockwebserver:4.10.0")
     androidTestImplementation("androidx.compose.ui:ui-tooling")

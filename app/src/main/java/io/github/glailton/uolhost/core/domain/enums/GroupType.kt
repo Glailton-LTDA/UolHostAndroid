@@ -9,5 +9,8 @@ enum class GroupType(@StringRes val value: Int) {
 
     companion object {
         fun fromValue(value: Int) = entries.first { it.value == value }
+        fun fromName(name: String) = entries.first { it.name == name }
+
+        fun getList() = entries.map { it.value }
     }
 }
