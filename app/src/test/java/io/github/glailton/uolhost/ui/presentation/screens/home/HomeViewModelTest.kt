@@ -51,9 +51,11 @@ class HomeViewModelTest {
 
         val state = vm.state.value
 
-        state.players shouldBe response
-        state.isLoading shouldBe false
-        state.showNetworkError shouldBe false
+        state.run {
+            players shouldBe response
+            isLoading shouldBe false
+            showNetworkError shouldBe false
+        }
     }
 
     @Test
